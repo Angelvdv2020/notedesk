@@ -874,10 +874,15 @@ pre.cb{
   .sidebar{display:none!important}
   .sb-open{display:none!important}
 
-  .doc-area{padding:var(--sp-4) 0 36px}
-  .page{width:100%!important;min-height:auto!important;padding:var(--sp-16)!important;border-radius:0;box-shadow:none;border:none}
+  /* Lock to viewport — NO horizontal scroll */
+  html,body,.app{max-width:100vw!important;overflow-x:hidden!important}
+  .doc-area{padding:var(--sp-4) 0 36px;overflow-x:hidden!important}
+  .page{width:100%!important;max-width:100vw!important;min-height:auto!important;padding:var(--sp-16)!important;border-radius:0;box-shadow:none;border:none;overflow-x:hidden}
+  .page-title{max-width:100%!important;font-size:20px}
+  .editor{max-width:100%!important;overflow-x:hidden;word-break:break-word;overflow-wrap:break-word}
   .ruler{display:none}
-  .header{height:44px;padding:0 var(--sp-6);gap:0}
+  .main-area{overflow-x:hidden!important}
+  .header{height:44px;padding:0 var(--sp-6);gap:0;max-width:100vw!important;overflow:hidden}
   .hdr-quick{padding-right:var(--sp-4);border-right:none;gap:0}
   .hdr-quick button{padding:6px 8px}
   .hdr-quick button svg{width:16px;height:16px}
@@ -972,7 +977,8 @@ pre.cb{
   .search-bar button{padding:8px 14px;font-size:13px;border-radius:var(--r-lg)}
   .editor{font-size:16px;line-height:1.7}
   .page-title{font-size:22px}
-  .status{font-size:10px;padding:var(--sp-4) 10px}
+  .status{font-size:10px;padding:var(--sp-4) 10px;max-width:100vw!important;overflow:hidden}
+  .status span[style*="display:flex"]{display:none!important} /* hide zoom on mobile */
 }
 @media(max-width:480px){
   .header{height:38px}
@@ -1716,8 +1722,13 @@ function updateWC(){
 let currentZoom=100;
 function setZoom(val){
   currentZoom=val;
-  document.getElementById('pageEl').style.transform='scale('+val/100+')';
-  document.getElementById('pageEl').style.transformOrigin='top center';
+  // Disable zoom on mobile — transform:scale causes horizontal overflow
+  if(window.innerWidth>860){
+    document.getElementById('pageEl').style.transform='scale('+val/100+')';
+    document.getElementById('pageEl').style.transformOrigin='top center';
+  }else{
+    document.getElementById('pageEl').style.transform='';
+  }
   document.getElementById('zoomSlider').value=val;
   document.getElementById('zoomVal').textContent=val+'%';
 }
