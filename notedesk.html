@@ -882,53 +882,89 @@ pre.cb{
   .hdr-quick button{padding:6px 8px}
   .hdr-quick button svg{width:16px;height:16px}
   .hdr-tabs{height:100%}
-  .rtab{padding:0 14px;font-size:13px;font-weight:600}
+  .rtab{padding:0 12px;font-size:12px;font-weight:600}
   .hdr-title{display:none}
   .hdr-right{border-left:none;padding-left:0;margin-left:auto;gap:0}
   .hdr-right button{padding:6px 8px}
   .ribbon-toggle{display:none}
+
+  /* ═══ MOBILE RIBBON — compact bottom sheet ═══ */
   .ribbon{
     position:fixed;top:44px;left:0;right:0;z-index:51;
     background:var(--bg-card);border-bottom:none;
     box-shadow:var(--shadow-28);
-    padding:0;min-height:auto;flex-direction:column;gap:0;
-    display:none;max-height:70vh;overflow-y:auto;overflow-x:hidden;
-    border-radius:0 0 var(--r-2xl) var(--r-2xl);transition:none;opacity:1;
+    padding:6px 0 0;min-height:auto;
+    flex-direction:column;gap:0;
+    display:none;
+    max-height:52vh;overflow-y:auto;overflow-x:hidden;
+    border-radius:0 0 var(--r-2xl) var(--r-2xl);
+    transition:none;opacity:1;
+    -webkit-overflow-scrolling:touch;
+    overscroll-behavior:contain;
   }
   .ribbon.collapsed{max-height:none;padding:0;opacity:1;overflow:visible;min-height:auto}
   .ribbon.mob-open{display:flex}
+
+  /* Groups — compact horizontal rows */
   .rgroup{
     display:flex;flex-direction:column;background:none;border:none;
     border-radius:0;padding:0;gap:0;box-shadow:none;
     border-bottom:1px solid var(--stroke-subtle);
   }
   .rgroup:last-child{border-bottom:none}
+
+  /* Group labels — small, tight */
   .rgroup-label{
-    display:block;font-size:10px;color:var(--accent-text);
-    text-align:left;padding:10px 16px 2px;
+    display:block;font-size:9px;color:var(--accent-text);
+    text-align:left;padding:4px 12px 0;
     font-weight:700;letter-spacing:.5px;
+    text-transform:uppercase;
   }
+
+  /* Rows — horizontal scroll, compact */
   .rgroup-row{
-    display:flex;gap:0;flex-wrap:nowrap;
+    display:flex;gap:2px;flex-wrap:nowrap;
     overflow-x:auto;-webkit-overflow-scrolling:touch;
-    padding:var(--sp-4) var(--sp-12) 10px;
+    padding:4px 8px 6px;
+    align-items:center;
   }
   .rgroup-row::-webkit-scrollbar{display:none}
+
+  /* Buttons — small circular/pill icons */
   .rb,.rb.big{
-    display:flex;flex-direction:column;align-items:center;justify-content:center;
-    min-width:50px;height:50px;padding:6px;
+    display:flex;align-items:center;justify-content:center;
+    min-width:40px;width:40px;height:40px;padding:0;
     border-radius:var(--r-lg);border:1px solid transparent;
-    font-size:0!important;gap:0;flex-shrink:0;color:var(--text-secondary);
+    font-size:0!important;gap:0;flex-shrink:0;
+    color:var(--text-secondary);
+    flex-direction:column;
   }
   .rb:active,.rb.big:active{background:var(--accent-subtle);border-color:var(--brand-90)}
-  .rb svg,.rb.big svg{width:22px!important;height:22px!important;opacity:.85}
-  .rsel{height:36px;font-size:14px!important;border-radius:var(--r-lg);padding:var(--sp-4) 10px;flex-shrink:0}
-  .rsel-font{width:130px}.rsel-size{width:56px}
-  .rcol-btn{min-width:50px;height:50px;padding:6px;border-radius:var(--r-lg);justify-content:center}
-  .rcol-btn .rc-letter{font-size:18px}
-  .rcol-btn .rc-bar{width:22px;height:4px}
+  .rb svg,.rb.big svg{width:20px!important;height:20px!important;opacity:.8}
+
+  /* Style buttons (Обычный, Загол.1 etc) — show text, pill shape */
+  .rb[onclick*="setBlock"],.rb[onclick*="applyCodeStyle"]{
+    width:auto!important;min-width:auto!important;
+    padding:6px 12px!important;
+    font-size:12px!important;
+    border:1px solid var(--stroke-default)!important;
+    border-radius:var(--r-md)!important;
+    height:32px!important;
+  }
+
+  /* Selects — compact */
+  .rsel{height:34px;font-size:13px!important;border-radius:var(--r-lg);padding:var(--sp-4) 8px;flex-shrink:0}
+  .rsel-font{width:110px}.rsel-size{width:50px}
+
+  /* Color pickers — compact */
+  .rcol-btn{min-width:40px;width:40px;height:40px;padding:4px;border-radius:var(--r-lg);justify-content:center}
+  .rcol-btn .rc-letter{font-size:16px}
+  .rcol-btn .rc-bar{width:18px;height:3px}
   .rcol-dd{position:fixed!important;top:auto!important;bottom:0!important;left:0!important;right:0!important;transform:none!important;border-radius:var(--r-2xl) var(--r-2xl) 0 0;min-width:auto;padding:var(--sp-20);box-shadow:var(--shadow-64);z-index:100}
+
+  /* Hide inline separators */
   .rgroup-row>span[style*="width:1px"]{display:none}
+
   .mob-backdrop{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.25);display:none;backdrop-filter:blur(2px)}
   .mob-backdrop.show{display:block}
   .search-bar{top:auto;bottom:60px;right:8px;left:8px;border-radius:var(--r-2xl);flex-wrap:wrap;box-shadow:var(--shadow-28);padding:var(--sp-12) var(--sp-16)}
@@ -942,15 +978,18 @@ pre.cb{
   .header{height:38px}
   .hdr-quick button{padding:5px 6px}
   .hdr-quick button svg{width:14px;height:14px}
-  .rtab{padding:0 10px;font-size:12px}
+  .rtab{padding:0 8px;font-size:11px}
   .hdr-right button{padding:5px 6px}
   .ribbon{top:38px}
-  .rb,.rb.big{min-width:44px;height:44px}
-  .rb svg,.rb.big svg{width:20px!important;height:20px!important}
-  .rcol-btn{min-width:44px;height:44px}
-  .rsel{height:32px;font-size:13px!important}
-  .rsel-font{width:110px}
-  .page{padding:12px!important}
+  .rb,.rb.big{min-width:36px;width:36px;height:36px}
+  .rb svg,.rb.big svg{width:18px!important;height:18px!important}
+  .rb[onclick*="setBlock"],.rb[onclick*="applyCodeStyle"]{
+    height:28px!important;padding:4px 8px!important;font-size:11px!important;
+  }
+  .rcol-btn{min-width:36px;width:36px;height:36px}
+  .rsel{height:30px;font-size:12px!important}
+  .rsel-font{width:95px}.rsel-size{width:44px}
+  .page{padding:10px!important}
   .editor{font-size:15px}
   .page-title{font-size:20px}
   .doc-area{padding:2px 0 28px}
